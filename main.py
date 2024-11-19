@@ -56,13 +56,12 @@ class Grid():
   def gen_apple(self):
     new_state = 1
     while new_state != 0:
-      apple_x = random.randint(0, self.width - 1)
-      apple_y = random.randint(0, self.height - 1)
+      apple_x = random.randint(0, self.width-1)
+      apple_y = random.randint(0, self.height-1)
 
       new_state = self.matrix[apple_x][apple_y].state
     
     self.matrix[apple_x][apple_y].switch_state(1)
-
 
 class Snake():
   def __init__(self, grid):
@@ -92,11 +91,9 @@ class Snake():
     self.grid.matrix[nx][ny].switch_state(2)
     self.body.append((nx, ny))
 
-grid = Grid(25, 25)
-#grid.matrix[10][10].switch_state(2)
-#block = Block((50, 50), (0, 0))
-#block.switch_state(2)
 
+
+grid = Grid(25, 25)
 snake = Snake(grid)
 grid.gen_apple()
 
@@ -109,36 +106,38 @@ while running:
   #Limits fps to 3
   clock.tick(3)
 
-  up, down, left, right, = False, False, False, False
+  up, down, left, right = False, False, False, False
 
   #Exits on game quit (close tab)
   for event in pg.event.get():
     if event.type == pg.QUIT: 
       running = False
+
     if event.type == pg.KEYDOWN:
       if event.key == pg.K_UP or event.key == pg.K_w:
         up = True
       if event.key == pg.K_DOWN or event.key == pg.K_s:
         down = True
-      if event.key == pg.K_RIGHT or event.key == pg.K_d:
-        right = True
       if event.key == pg.K_LEFT or event.key == pg.K_a:
         left = True
-        
+      if event.key == pg.K_RIGHT or event.key == pg.K_d:
+        right = True
+
   if up or down or left or right:
-    start_move = True
-  
+    start_moving = True
+
   if up and snake.dir != (0, 1):
     snake.dir = (0, -1)
   elif down and snake.dir != (0, -1):
     snake.dir = (0, 1)
+  elif left and snake.dir != (1, 0):
+    snake.dir = (-1, 0)
   elif right and snake.dir != (-1, 0):
     snake.dir = (1, 0)
-  elif left and snake.dir != (1, 0):
-    snake.dir = (1, 0)
-  
+
   if start_moving:
     snake.move()
+
 
   #BG
   screen.fill((255, 255, 255))
