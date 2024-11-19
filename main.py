@@ -85,18 +85,15 @@ class Snake():
     if self.grid.matrix[nx][ny].state == 1:
       self.grid.gen_apple()
     else:
-      pass
-
-
-    tail_x, tail_y = self.body[0]
-    self.grid.matrix[tail_x][tail_y].switch_state(0)
-    self.body.pop(0)
+      tail_x, tail_y = self.body[0]
+      self.grid.matrix[tail_x][tail_y].switch_state(0)
+      self.body.pop(0)
 
     self.grid.matrix[nx][ny].switch_state(2)
     self.body.append((nx, ny))
 
 grid = Grid(25, 25)
-grid.matrix[10][10].switch_state(2)
+#grid.matrix[10][10].switch_state(2)
 #block = Block((50, 50), (0, 0))
 #block.switch_state(2)
 
@@ -109,8 +106,8 @@ running = True
 start_moving = False
 
 while running:
-  #Limits fps to 30
-  clock.tick(30)
+  #Limits fps to 3
+  clock.tick(3)
 
   up, down, left, right, = False, False, False, False
 
